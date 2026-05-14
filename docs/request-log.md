@@ -1,0 +1,181 @@
+# Request Log (for future feature reference)
+
+User requests are recorded here in English.
+
+---
+
+- 2025-03-04: Add a rule to record each user request in a specific file for future feature reference
+- 2025-03-04: Ask for this person's mobile phone number
+- 2025-03-04: Write an UPDATE query to set this member's DORMANT_YN to N
+- 2025-03-04: Add a comment about DORMANT_YN to the schema md file
+- 2025-03-04: Find 한동규 at LG이노텍 (production)
+- 2025-03-04: Check if korea0166 at customer C000007600 has two unified member accounts
+- 2025-03-04: Ask why request log was not being recorded
+- 2025-03-04: Confirm to update (the rule)
+- 2025-03-04: Record (request log) in English
+- 2025-03-04: Run SHOW INDEX for all tables in tables/ (EDU), then add index info to each table spec file
+- 2025-03-04: Check if unified member with user_id kakaojoin4285141553 exists
+- 2025-03-04: Check if unified account exists for 김수근 19850810 01050668146 (production)
+- 2025-03-04: Check if this person (김수근) also has 2 unified accounts
+- 2025-03-05: Request comprehensive project analysis and create report as MD file in root
+- 2025-03-05: User cites section 6.1 (API-first rules from usage.mdc) — confirm or update alignment
+- 2025-03-05: Ask which is better for load and token usage: API-first vs one-off terminal commands
+- 2025-03-05: Note that question scope is unpredictable and vast — re-evaluate API vs one-off under that assumption
+- 2025-03-05: Ask how to reduce token usage when selecting the right API combination as the number of APIs grows
+- 2025-03-05: Ask whether RAG (Retrieval-Augmented Generation) concept is applied in the project
+- 2025-03-05: Ask for customer company ID (고객사 아이디) for target number 9019717
+- 2025-03-05: Ask for PRODUCT_DISPLAY_TYPE of customer C000007600's 2026 policy
+- 2025-03-05: Ask what test item HL324 is (testItemCd)
+- 2025-03-05: Check if 조문섭 (1993-12-01) is pre-registered for customer C000030835
+- 2025-03-05: Check if 김진솔 (1991-11-07) is a unified member (운영 기준)
+- 2025-03-05: Ask if 삼성전자(주)광주사업장 has products with gastroscopy (위내시경) for reservation
+- 2025-03-09: Find account for 이효진 (birth 19940601) at customer company 엠피더블유코리아
+- 2025-03-09: Find 추교석 at 포스코PH솔루션 and get corporate member number (USER_NO)
+- 2025-03-09: Get USER_RELATION_TYPE, USER_TYPE for USER_NO 463842
+- 2025-03-09: Update USER_NO 463842: USER_RELATION_TYPE=50, USER_TYPE=20
+- 2025-03-09: Get unified member ID (통합회원아이디) for 조유라 at 네슬레코리아
+- 2025-03-09: Get any one examinee from 한국알프스(주) and their unified member ID for testing
+- 2025-03-09: Find examinee at 한국알프스(주) with name starting 김영 and birth 1977-11
+- 2025-03-09: Which 2026 policy roster at 한국알프스(주) is also a unified member (통합회원)
+- 2025-03-09: Create API that returns list of customers by CUSTOMER_NAME
+- 2025-03-09: Find unified member account for 안상영 (1960-01-15) at (주)한미글로벌건축사사무소
+- 2025-03-11: Get unified account ID for 지경선 at 삼성전자(주)광주사업장
+- 2025-03-11: Find examinee 지경선 (1980-11-03) at 삼성전자(주)광주사업장 and get super roster's unified account ID
+- 2025-03-11: Find 이진숙 (1974-11-30) at 메트라이프 (company name not exact)
+- 2025-03-11: List examinee (수검자) records for 이진숙 including deleted
+- 2025-03-11: Get ETC_CHECKUP_TEXT for roster 8193523
+- 2025-03-11: Get LAST_PATH for roster 8193523
+- 2025-03-11: View HC_CHECKUP_ROSTER_HIST for roster 8193523
+- 2025-03-11: Check if roster 8177592 is mapped (USER_NO)
+- 2025-03-11: Why roster 8177592 is not mapped (analyze)
+- 2025-03-11: Requirement — roster should be mapped when name, birthday, mobile match (이름 생년월일 휴대폰 같으면 매핑되어야 함)
+- 2025-03-11: Get unified account ID for this person (이진숙 / 8177592)
+- 2025-03-11: Find examinee by reservation number 1001271906 and get unified account ID
+- 2025-03-11: Get corporate member ID (USER_ID) or EMPLOY_NO for USER_NO 485779 (문혜경)
+- 2025-03-11: Get customer domain for examinee's company (C000002867)
+- 2025-03-11: Get full product and all selected checkup items for reservation 1001271906
+- 2025-03-11: Get checkup institution (partner center) for product 1370143
+- 2025-03-11: Get unified member IDs for 김지홍 and 박금천 at 광주소방서
+- 2025-03-11: Search examinee (수검자) 이진숙 at 메트라이프
+- 2025-03-11: List 이진숙 examinees at 메트라이프 including deleted
+- 2025-03-11: Include ETC_CHECKUP_TEXT in roster list response/display
+- 2025-03-11: Get creation date (REG_DT) for rosters 8177592, 8193523
+- 2025-03-11: List examinee (수검자) 김정호 at C000012095 (빗썸) including deleted
+- 2025-03-11: Check examinee data for 이동민 (19710216, 010-3545-8624) at 한국도로공사 대구경북본부 (operation/prod)
+- 2025-03-11: Check if roster 9112906 has reservation(s)
+- 2025-03-11: Get account (unified/corporate) for roster 9112906 (이동민)
+- 2025-03-11: Compare corporate member 1085101 vs roster 9112906 (birthday, mobile)
+- 2025-03-11: Get LAST_PATH for reservation 1001266373 (9112906's reservation)
+- 2025-03-11: Find family member 이미현 for 박선호 (19801105) at C000012089 (캐논쎄미콘덕터엔지니어링코리아)
+- 2025-03-11: Check if person (박선호 8964750) is individual payment or company billing target (개인수납/회사청구)
+- 2025-03-11: Check if any roster has 박선호 as super roster (SUPER_CHECKUP_ROSTER_NO)
+- 2025-03-11: Get latest policy for customer C000012089
+- 2025-03-11: List 박선호 family rosters including deleted
+- 2025-03-11: Check if 박선호 has unified account (통합계정)
+- 2025-03-11: Check examinee data for 이동민 (19710216, 010-3545-8624) at 한국도로공사 대구경북본부 (operational/prod)
+- 2025-03-13: Find unified account ID for 조유림 (19920124, 01045692124) at C000003653 (커머스웨어)
+- 2025-03-13: Query policy years for customer C000003653
+- 2025-03-13: Check if any policy for C000003653 is valid as of 20260313 (operational)
+- 2025-03-13: How is 조유림's 2026 roster registered (detail)
+- 2025-03-13: Find unified account ID for examinee (roster) 9211095
+- 2025-03-13: Look up by reservation number: product name, checkup institution, customer
+- 2025-03-13: Check if examinee 정성욱 is registered for customer C000002411
+- 2025-03-13: Get unified account for 정성욱 2026 roster (operational)
+- 2025-03-13: Find unified account ID for examinee 이다애 at 서비스에이스주식회사
+- 2025-03-13: Analyze why product 1430750 does not appear in roster 9216113 query (operational)
+- 2025-03-16: List examinee (수검자) for 장보선 (1993-11-03) at 카카오헬스케어 with latest policy
+- 2025-03-16: Confirm if roster exists for 장보선 at 카카오헬스케어 (production)
+- 2025-03-16: Search roster by name 장윤선 at 카카오헬스케어 (production)
+- 2025-03-16: Check if any reservations exist for 장윤선's rosters (production)
+- 2025-03-16: Get full row data for reservation 1001300424 (production)
+- 2025-03-16: Explain why reservation 1001300424 has COMPANY_SUPPORT_AMOUNT 0 despite roster being eligible for company support
+- 2025-03-16: Check roster 9182702 state at the time reservation 1001300424 was created
+- 2025-03-16: Check if 장윤선 (USER_NO 247707) is unified member and get unified account ID
+- 2025-03-16: Find examinee 정영숙 (1970-05-28, 01032494249) at company 자이에스앤디
+- 2025-03-16: Explain why roster 9224920 was auto-created when 9226979 was already mapped
+- 2025-03-16: Search member info for USER_NO 202090
+- 2025-03-16: Find family rosters registered under each of 정영숙's examinee (principal) rosters
+- 2025-03-16: Get LAST_PATH and registration time for 2026 천명환 rosters
+- 2025-03-16: Check if 8595537 is a unified member
+- 2025-03-16: Get unified account for 정영숙 (1970-05-28, 01032494249) at 자이에스앤디
+- 2025-03-16: Find examinee 윤다인 at C000007796 (켄뷰코리아) for latest policy
+- 2025-03-16: Retry 윤다인 C000007796 latest policy roster (production)
+- 2025-03-16: Explain why roster 9091508 is not mapped (USER_NO null)
+- 2025-03-16: List examinee 허강성 (720520) at C000012063 실리콘마이터스, including deleted, latest policy (production)
+- 2026-03-18: Start the FastAPI server
+- 2026-03-18: For IM Capital, list latest-policy examinee rosters for Choi Chi-won (841004) and check unified account ID
+- 2026-03-18: Provide corporate member number (USER_NO) for Choi Chi-won (841004) at IM Capital
+- 2026-03-16: Find unified account ID for 손주찬 (1997-07-16, 01030656861)
+- 2026-03-23: Look up examinee (수검자) data for 최진호 (770728) at 무신사페이먼츠
+- 2026-03-23: Show all columns for CHECKUP_ROSTER_NO 9238548
+- 2026-03-23: Get customer ID (CUSTOMER_ID) for 부쉐론(케어링와치앤주얼리)
+- 2026-03-23: Check if examinee 배지원 exists for customer C000001911 (부쉐론)
+- 2026-03-23: Ask if CHECKUP_ROSTER_NO 9239758 is mapped (USER_NO)
+- 2026-03-23: Explain why rosters 9352774 and 9353064 exist when 9239758 is already mapped
+- 2026-03-23: For customer C000001911 (부쉐론), latest policy year and personal/company support checkup periods
+- 2026-03-23: Summarize why rosters 9352774/9353064 were auto-created vs 9239758 (company vs individual support period)
+- 2026-03-23: Document the above case as a playbook for future similar inbound troubleshooting
+- 2026-03-23: Get unified member login ID (통합회원 아이디) for 배지원 (USER_NO 1110996 / 부쉐론)
+- 2026-03-23: Find examinee (수검자) data for 김지한, employ no 50504182, at 한국필립모리스
+- 2026-03-23: Check if 김지한 (USER_NO 178424) has unified account (통합계정)
+- 2026-03-23: Ask if corporate member (법인회원) account exists for 김지한 at 한국필립모리스
+- 2026-03-23: Ask what corporate/enterprise login method is for 한국필립모리스 (C000002411)
+- 2026-03-23: Memo HC_CUSTOMER.LOGIN_TYPE: 10=사번(EMPLOY_NO), 20=ID(USER_ID)
+- 2026-03-23: Ask corporate domain (CUSTOMER_DOMAIN) for 한국필립모리스 (C000002411)
+- 2026-03-23: Get ROSTER_ID_TYPE for customer C000027448 (한국전력기술)
+- 2026-03-23: Find roster and unified account for 길다영 at 한국전력기술(C000027448)
+- 2026-03-24: Check if future reservations exist for 박창순 (19740912, 01089205806) at Microworks Suwon customer
+- 2026-03-24: For reservation 1001281279, get product, institution, selected test items, checkup date
+- 2026-03-26: Find examinee information for Gilda-young at Daedong Mobility
+- 2026-03-26: Retry finding examinee information for Gilda-young at Daedong Mobility
+- 2026-03-26: Ask whether this person has a unified account
+- 2026-03-26: List all policies for Daedong Mobility and company support vs personal payment periods per policy
+- 2026-03-26: For customer C000015257, verify examinee Park Jae-min (1992-10-21) under 2026 policy; if company-supported, check mapping and explain if not mapped
+- 2026-03-26: Ask for creation date (REG_DT) of the two examinee records (rosters) for that case
+- 2026-03-26: Ask for company support policy period for this customer (C000015257)
+- 2026-03-26: Ask for the customer certify code for customer C000015257
+- 2026-03-26: Ask whether Park Jae-min (USER_NO 1118751) has a unified account
+- 2026-03-26: Search examinee data for Seo Dong-woo at Hwacheon Machinery Co., Ltd.
+- 2026-03-26: Get unified account login ID for Seo Dong-woo at Hwacheon Machinery
+- 2026-03-26: List customer detail for CUSTOMER_IDs C000008035, C000030257–C000030260 (production)
+- 2026-03-26: Same customer IDs lookup on development (EDU) DB
+- 2026-03-26: Customer detail for C000008035, C000030554, C000030097, C000030363, C000030753 (production)
+- 2026-03-26: On development DB, run DESC for HC_DEPARTMENT_TEMP and HC_MINDTEST_CHECKUP, then create table spec MDC files
+- 2026-03-26: On production DB, query all completed HC_MINDTEST_CHECKUP records for checkups conducted in 2026
+- 2026-03-26: Provide the above 2026 completed HC_MINDTEST_CHECKUP results in CSV format
+- 2026-03-26: List which customers appear in the exported CSV
+- 2026-03-26: Query HC_DEPARTMENT_TEMP for all customers included in the mindtest CSV and report results
+- 2026-03-31: Provide only CHECKUP_ROSTER_NO values from the exported mindtest CSV
+- 2026-03-31: Run specified mindtest+roster+department_temp query on production and export results to CSV
+- 2026-03-31: List examinees (rosters) for 고광수 and 이도건 at customer C000012820 (production)
+- 2026-03-31: List 고광수 rosters at C000012820 including deleted (CHECKUP_ROSTER_ST=90)
+- 2026-03-31: Ask whether company-supported examinees exist (context: 고광수 at C000012820)
+- 2026-03-31: Re-query 고광수 rosters at C000012820 for 2026 policy year only (include deleted)
+- 2026-03-31: Ask if company-supported examinees exist for 고광수 in 2026 at C000012820
+- 2026-03-31: Get REG_DT for roster 9412658 and for examinees with ETC_CHECKUP_TEXT 대상자조회중자동생성
+- 2026-03-31: Compare HC_CHECKUP_ROSTER vs HC_CHECKUP_ROSTER_HIST for CHECKUP_ROSTER_NO 8330377 and summarize changes
+- 2026-04-01: List all examinee (roster) rows for 이동원 birth 1978-09-29 at customer C000000620 for 2026 policy (production)
+- 2026-04-01: For customer C000000620, get 2026 policy personal vs company support periods (RESERV vs FAMILY_CHECKUP)
+- 2026-03-26: From HC_DEPARTMENT_TEMP results, find rows whose NAME is not 대분류/중분류 (i.e., subcategory names)
+- 2026-03-26: Export hc_mindtest_checkup_2026_finished_prod.csv as JSON
+- 2026-04-06: Create a markdown file under docs with content "안녕하세요"
+- 2026-04-06: Delete that markdown file (docs/hello.md)
+- 2026-04-13: Generate SQL UPDATE statements for HC_RESERV by CENTER_RESERV_ID to set RESERV_DAY and RESERV_1TH_HOPE_DAY to given reservation dates
+- 2026-04-13: Provide the same HC_RESERV updates as six separate UPDATE queries (one per CENTER_RESERV_ID)
+- 2026-04-15: Find unified account ID for examinee 최대훈 (19960105, 010-7744-0105) at customer C000003474 (operational criteria)
+- 2026-04-15: Look up and display corporate member USER_NO 216597 and unified member COMMON_USER_NO 1007804
+- 2026-04-15: Get earliest creation timestamps for corporate member USER_NO 216597 and unified member COMMON_USER_NO 1007804
+- 2026-04-15: Verify whether USER_CI matches between corporate USER_NO 216597 and unified COMMON_USER_NO 1007804
+- 2026-04-15: Investigate clues of modifications for HC_USER USER_NO 216597 without a history table
+- 2026-04-15: Explain why HC_USER USER_NO 216597 (maxhoon identity) currently has Won Hyunji profile fields
+- 2026-04-15: Find unified member login ID for 김리요
+- 2026-04-16: Ask whether table HC_CHECKUP_ITEM_CD is defined
+- 2026-04-16: Request DDL to add CT_CNT column to HC_CHECKUP_ITEM_CD
+- 2026-04-16: Specify default value 0 for CT_CNT column DDL
+- 2026-04-16: Set CT_CNT column comment to 'CT 포함 개수'
+- 2026-04-16: Ask if the CT_CNT ALTER TABLE DDL is valid MySQL syntax
+- 2026-04-17: On production criteria, find examinees for customer C000002136 whose employ number ends with 4090 under 2026 policy
+- 2026-04-17: Add GET /rosters/by-employ-no-suffix for customer + EMPLOY_NO suffix + optional POLICY_YEAR (PyMySQL %% escape for LIKE)
+- 2026-04-17: Ask whether examinee (김정민 / roster 9753434 at C000002136) receives company support
+- 2026-04-17: Ask FAMILY_SUPPORT_TYPE for customer C000002136
+- 2026-05-14: Initialize git repo, push source to https://github.com/kimtaru/fastapi-app.git excluding secrets (.env etc.)

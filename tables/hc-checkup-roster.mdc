@@ -1,0 +1,121 @@
+---
+description: HC_CHECKUP_ROSTER (검진 명단/수검자) 테이블 명세.
+alwaysApply: false
+---
+**조회 시:** 현재 유효한 검진대상자만 보려면 `CHECKUP_ROSTER_ST = '00'` 조건 필수. (00=Active, 90=Deleted)
+
+**HC_CHECKUP_ROSTER**
+CHECKUP_ROSTER_NO:int PRI NN AI
+CUSTOMER_ID:char(10) MUL
+USER_ID:varchar(50)
+USER_NO:int MUL [->HC_USER]
+POLICY_YEAR:char(4)
+EMPLOY_RELATION_TYPE:char(2) [00=본인,10=배우자,20=자녀,30=부친,31=배우자 부친,40=모친,41=배우자 모친,50=기타,51=기타_퇴직자,52=기타_가족,53=기타_지인,60=미지정,70=조부,71=조모,80=배우자 조부,81=배우자 조모,01=형제,02=자매,32=백부,33=숙부,34=고모,44=이모,23=배우자형제,24=배우자자매]
+SUPER_CHECKUP_ROSTER_NO:int MUL [principal's ROSTER_NO when family]
+ROSTER_NAME:varchar(100) MUL
+EMPLOY_NO:varchar(100)
+COMPANY_SUPPORT_AMOUNT:int def=0
+LAST_PATH:char(1) [A=Admin,P=Self]
+CHECKUP_ROSTER_ST:char(2) [00=Active,90=Deleted]
+EMPLOY_STATUS_TYPE:char(2)
+ROSTER_ENGLISH_NAME:varchar(100)
+EMAIL:varchar(100)
+BIRTHDAY:char(8)
+ROSTER_TYPE:char(2) def=10
+GENDER_CD:char(2)
+MOBILE_NO:varchar(30) MUL
+PHONE_NO:varchar(30)
+DEPARTMENT:varchar(200)
+JOB_TYPE:char(2)
+DOMESTIC_YN:char(1)
+VIP_YN:char(1)
+CHECKUP_DIV_CD:char(2)
+COMPANY_SUPPORT_CHARGE_AMOUNT:int def=0
+COMPANY_SUPPORT_USAGE_AMOUNT:int def=0
+NHIS_TARGET_YN:char(1)
+SPECIAL_CHECKUP_YN:char(1)
+NIGHTTIME_TARGET_YN:char(1)
+SETTLE_WAY_CD:char(2)
+VISIT_CHECKUP_TARGET_YN:char(1)
+CHECKUP_START_DT:char(14)
+CHECKUP_END_DT:char(14)
+VACCINE_TEXT:char(100)
+ETC_CHECKUP_TEXT:char(100)
+SPECIAL_CHECKUP_TEXT:varchar(1000)
+PRIVACY_AGREE_YN:char(1)
+SERVICE_AGREE_YN:char(1)
+INFO_SHARE_AGREE_YN:char(1)
+SENSITIVE_INFO_AGREE_YN:char(1)
+RESIGN_YN:char(1)
+RESIGN_DT:char(14)
+BEFORE_WORK_TEST_YN:char(1)
+REG_DT:char(14)
+CHECKUP_PROPOS_NO:int MUL
+BEFORE_WORK_TEST_TEXT:varchar(4000)
+COMPANY_SUPPORT_TYPE:char(2) [00=개인수납(개인청구),10=회사지원]
+PERSONAL_PAYER_BILLING_YN:char(1) def=N
+ROSTER_CI:char(88)
+ROSTER_DI:char(66)
+REG_ADMIN_ID:varchar(50)
+CHANGE_DT:char(14)
+CHANGE_ADMIN_ID:varchar(50)
+ROSTER_MGMT_TYPE:char(2) def=10
+NATIONALITY:varchar(100)
+NATIONALITY_CD:varchar(10)
+COMPANY_SUPPORT_FAMILY_AMOUNT:int def=0
+COMPANY_SUPPORT_FAMILY_ABLE_COUNT:int def=0
+COMPANY_SUPPORT_FAMILY_COUNT:int def=0
+CHECKUP_RESULT_AGREE_YN:char(2)
+MERCHANT_SHIP_YN:char(2)
+OT_YN:varchar(1) def=N
+HPC310_ADD_YN:varchar(1) def=N
+REG_AGREE_DT:char(14)
+MIG_YN:char(1)
+MIG_DT:char(8)
+ONLINE_YN:char(1) MUL def=N
+ONLINE_DT:char(14)
+UN_REG_EMPLOY_YN:char(1) def=N
+TEMP_MOBILE_UPDATE_YN:varchar(1)
+ROSTER_BATCH_YN:char(1)
+BULK_BATCH_NO:int
+BULK_ROW_NO:int
+EMOTIONAL_TEST_YN:char(1) def=N
+MIND_TEST_ST:char(2) def=00
+LAST_SEARCH_DT:char(14)
+SAFEPRO_YN:varchar(2)
+HELLO_PRODUCT_CD:varchar(20)
+NEW_RESERV_YN:char(1) def=N
+
+---
+
+## 개인청구 / 회사지원 대상자 여부
+
+- **판별 기준:** Roster의 `COMPANY_SUPPORT_TYPE`으로 구분한다.
+- **00** = 개인수납(개인청구) 대상
+- **10** = 회사지원 대상
+
+---
+
+## Family relation and super roster
+
+- **EMPLOY_RELATION_TYPE:** `00` = self (본인), others = family. The self roster may exist in duplicate (e.g. company-supported + individual billing).
+- **Super roster:** The single self roster that family rosters reference. Each family roster stores that self’s `CHECKUP_ROSTER_NO` in `SUPER_CHECKUP_ROSTER_NO`.
+- **Super roster criteria:** Self (`00`) and `SUPER_CHECKUP_ROSTER_NO` is 0 or null. When multiple self rosters exist, the super roster is the one with the lowest value in this order: 1. `CHECKUP_DIV_CD`, 2. `ROSTER_MGMT_TYPE`, 3. `CHECKUP_ROSTER_NO`.
+- **Policy year:** The super roster is determined **per POLICY_YEAR**. The same person can have a different super roster for 2025, 2026, etc. When someone asks "what is this person's super roster?" or when resolving the super roster, **always specify or ask the policy year** (e.g. "정책은 몇 년도로 할까요?" / "Which policy year?").
+
+---
+
+## Index (EDU)
+
+- **CHECKUP_PROPOS_NO_index:** CHECKUP_PROPOS_NO
+- **GET_CHECKUP_ROSTER_INFO_LIST_IDX:** CHECKUP_ROSTER_ST, CUSTOMER_ID, DEPARTMENT, ROSTER_NAME, BIRTHDAY, MOBILE_NO, EMPLOY_NO, PHONE_NO, CHECKUP_DIV_CD, REG_DT
+- **HC_CHECKUP_ROSTER_CHECKUP_ROSTER_ST_index:** CHECKUP_ROSTER_ST
+- **NAME_BIRTH_MOBILE:** ROSTER_NAME, BIRTHDAY, MOBILE_NO
+- **ONLINE_INDEX:** ONLINE_YN, REG_DT
+- **PRIMARY:** CHECKUP_ROSTER_NO
+- **USER_NO_CUSTOMER_ID__index:** USER_NO, CUSTOMER_ID
+- **copy_checkup_roster_index:** COPY_CHECKUP_ROSTER_NO
+- **idx_customer_name:** CUSTOMER_ID, ROSTER_NAME
+- **idx_mobile_no:** MOBILE_NO
+- **idx_super_checkup_roster_no:** SUPER_CHECKUP_ROSTER_NO
+- **roster_name_idx:** ROSTER_NAME

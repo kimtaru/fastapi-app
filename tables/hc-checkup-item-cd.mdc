@@ -1,0 +1,36 @@
+---
+description: HC_CHECKUP_ITEM_CD (검진 항목 코드 마스터) 테이블 명세.
+alwaysApply: false
+---
+검진 항목 코드 마스터. PK: CHECKUP_ITEM_CD. 대·중분류, 항목명, 기준가 등.
+
+**HC_CHECKUP_ITEM_CD**
+CHECKUP_ITEM_CD:char(6) PRI NN
+CHECKUP_MAIN_CATEGORY_CD:char(2)
+CHECKUP_MID_CATEGORY_CD:char(4)
+HIRE_YN:char(1)
+ITEM_NAME:varchar(100)
+STANDARD_PRICE:int
+RELATION_DISEASE_CONTENTS:varchar(500)
+GENDER_CD:char(2)
+REG_DT:char(14)
+REG_ADMIN_ID:varchar(20)
+CHG_DT:char(14)
+CHG_ADMIN_ID:varchar(20)
+CHECKUP_ITEM_ST:char(2)
+ITEM_DIV_CD:char(2)
+MIG_YN:char(1)
+MIG_DT:char(8)
+EQUIP_YN:char(1)
+TOP_TEST_ITEM_CD_YN:char(1) def=N
+INSP_METHOD_CD:varchar(20)
+DISEASE_TEST_CLS_CD:varchar(20)
+GROUP_NAME:varchar(10)
+BUNDLE_YN:char(1)
+BASE_ITEM_NAME:varchar(100)
+
+---
+
+## Index (EDU)
+
+- **PRIMARY:** CHECKUP_ITEM_CD

@@ -1,0 +1,56 @@
+---
+description: Agent must answer by implementing/calling APIs and analyzing responses, not by running ad-hoc commands.
+alwaysApply: true
+---
+
+# Answer via API, Not Inline Commands
+
+When the user asks for data or analysis that requires the database or backend, **do not** run one-off code in the terminal (e.g. `python3 -c "from db import ..."`). Use the workflow below and answer from **API response data**.
+
+---
+
+# Workflow
+
+> **⚠️ Read-only**  
+> **INSERT / UPDATE / DELETE are not allowed.** Only READ (query) operations are permitted.
+
+## 1. Prefer existing APIs
+
+When you receive a request:
+
+- **First check** whether an existing endpoint can fulfill it (e.g. `GET /customers`, `GET /persons/unified-member`).
+- If a suitable API exists, **call it**, then **analyze the response** and answer the user.
+
+## 2. Add an API only when necessary
+
+If no existing API fits:
+
+- **Design for reusability**: parameterize (e.g. `name`, `prod`, `id`), use clear query params, and keep endpoints in domain routers so future requests can reuse them.
+- **Prefer composing over new endpoints**: for specialized or one-off needs, try to **combine results from multiple API calls** first.
+- **Add a dedicated endpoint** only when the need cannot be met by composing existing APIs.
+
+## 3. Answer from the response
+
+- **Call** the chosen endpoint (start the app if needed, or use a running server).
+- **Use the JSON response** to analyze and formulate the answer; do not invent or guess data.
+
+---
+
+# Request logging (for future feature reference)
+
+**Right after receiving a user request, before any other work** (API calls, code edits, etc.), do the following:
+
+1. **First** append one line to `docs/request-log.md` describing the request **in English**.
+2. Format: `- YYYY-MM-DD: [Brief description of the request in English]`
+3. If the file does not exist, create `docs/request-log.md` then append.
+4. Then proceed with the actual task (answer, API call, etc.).
+
+**Purpose:** Reference for future feature improvement and API design.
+
+---
+
+# Summary
+
+**Do:** Log request to `docs/request-log.md` first (in English, right after receiving) → check existing API → call it → answer from response. Prefer reusable, parameterized GET endpoints. Combine multiple API results for special cases.
+
+**Don’t:** Run `python3 -c "..."` or ad-hoc scripts in the terminal. Don’t add one-off endpoints for every request. Don’t create a dedicated API before trying composition.

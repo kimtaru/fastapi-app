@@ -1,0 +1,89 @@
+---
+description: Guide for the member domain.
+alwaysApply: false
+---
+# Overview
+
+This rule describes table schemas related to customer data.  
+The primary member table is **HC_USER**.
+
+Table specifications (column definitions) are in `tables/` (project root):
+- **HC_USER** → `tables/hc-user.mdc`
+- **HC_USER_COMMON** → `tables/hc-user-common.mdc`
+- **HC_CUSTOMER** → `tables/hc-customer.mdc` — Company (master) info for each member.
+- **HC_CUSTOMER_MAP** → `tables/hc-customer-map.mdc`
+- **HC_CHECKUP_ROSTER** → `tables/hc-checkup-roster.mdc`
+- **HC_CHECKUP_PROPOS** → `tables/hc-checkup-propos.mdc`
+- **HC_CHECKUP_POLICY** → `tables/hc-checkup-policy.mdc`
+
+---
+
+# 1. HC_USER (Corporate Member)
+
+Each USER has a single `CUSTOMER_ID`.  
+→ The ID of the company (client organization) the member belongs to; this is called a **Corporate Member**.
+
+**Customers without a company**  
+Individual customers with no affiliated organization are mapped to **fixed CUSTOMER_ID: C000008035** (Healthcare individual client).
+
+- Contracted corporate employees → Can book checkup products exclusive to that company  
+- General individual customers → Can only book products created for individuals  
+
+---
+
+# 2. HC_USER_COMMON (Unified Member)
+
+A single person can belong to multiple companies, so multiple `HC_USER` rows may exist.  
+This table was created so that **one login** allows booking across **all affiliated organizations**, avoiding the need to log in per company.
+
+**Relationship**
+
+```
+HC_USER_COMMON (1 unified)  ←→  HC_CUSTOMER_MAP  ←→  HC_USER (multiple per company)
+```
+
+*Example: A person in C000000001 moves to subsidiary C000000002 or changes job to C000000003 — multiple HC_USER rows for the same person. HC_USER_COMMON + HC_CUSTOMER_MAP link the unified member to multiple corporate member records.*
+
+---
+
+# 3. HC_CUSTOMER_MAP (Unified ↔ Corporate Mapping)
+
+**Junction table** used to get the list of corporate members (HC_USER) belonging to one unified member.  
+You can also query via JOIN on `USER_CI`.
+
+# 4. HC_CHECKUP_ROSTER (Checkup Roster / Examinee)
+
+**Core table** representing the unit of a checkup product.  
+One `HC_USER` can have **multiple ROSTER** rows.  
+For family relation (EMPLOY_RELATION_TYPE), super roster, and related details, see **`tables/hc-checkup-roster.mdc`**.
+
+### Pre-registration
+
+When a contract is signed with a company or a new policy is established, the client provides employee information and **admins register it in HC_CHECKUP_ROSTER first**. This process is called **pre-registration**.
+
+- At pre-registration, the user has not signed up yet, so **USER_NO is empty** (unmapped).
+- After the user signs up and logs in and **HC_USER** is created, if the three values below match, **HC_CHECKUP_ROSTER.USER_NO** is updated to that **HC_USER.USER_NO**.
+
+**Matching criteria**
+
+HC_USER <-> HC_CHECKUP_ROSTER JOIN keys:
+USER_NAME=ROSTER_NAME, BIRTHDAY=BIRTHDAY, MOBILE_NO=MOBILE_NO or EMPLOY_NO=EMPLOY_NO
+
+When name, birthday, and (mobile number or employee number) all match → `HC_CHECKUP_ROSTER.USER_NO` is set to `HC_USER.USER_NO`.  
+This is called **pre-registration mapping**.
+
+*There are other pre-registration mapping methods, but **the majority** are mapped by the above criteria.*
+
+
+### When mapping fails
+
+- **Name · Birthday · (Mobile or employee number)** — Typos, name changes, or number changes can prevent mapping and are one of the **main causes of issues** in the service.
+- When investigating **why mapping did not occur**, check mismatch of the above criteria **first**.
+
+---
+
+# 5. HC_CUSTOMER (Corporation / Customer Master)
+
+- **Corporation (customer) master.** Holds company info for each member.
+- `HC_USER.CUSTOMER_ID` references this table’s `CUSTOMER_ID`. Company name (`CUSTOMER_NAME`) and the like are looked up here.
+- Individual customers (no affiliated company) are mapped to the fixed `CUSTOMER_ID: C000008035` (Healthcare program). See `tables/hc-customer.mdc` for column specs.

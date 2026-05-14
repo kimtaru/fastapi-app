@@ -1,0 +1,19 @@
+---
+description: HC_MINDTEST_CHECKUP 테이블 명세.
+alwaysApply: false
+---
+마인드테스트 검진 연계 데이터 테이블.
+
+**HC_MINDTEST_CHECKUP**
+MINDTEST_CHECKUP_NO:int(11) PRI NN AI
+CHECKUP_DIV_CD:char(2)
+CUSTOMER_ID:char(10)
+CUSTOMER_NAME:varchar(100)
+RCEPT_STATUS_CD:char(2) [03: 검진완료]
+CHECKUP_ROSTER_NO:int(11)
+CHECKUP_DATE:char(14)
+CHECKUP_FINISH_DATE:char(14)
+CHECKUP_REPORT_URL:varchar(100)
+POLICY_YEAR:char(4)
+USER_NO:int(11)
+DEPART_MENT_CODE:char(6) NN

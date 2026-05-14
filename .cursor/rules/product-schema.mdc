@@ -1,0 +1,86 @@
+---
+description: Guide for the product domain.
+alwaysApply: false
+---
+
+# Product Domain Overview
+
+- **Product** here means **health checkup product**.
+- Examinees (`HC_CHECKUP_ROSTER`) book products from `HC_CHECKUP_PRODUCT`.
+- Two core concepts: **Proposal** and **Policy**.
+
+Table specifications (column definitions) are in project root `tables/`.
+- **HC_CHECKUP_POLICY** → `tables/hc-checkup-policy.mdc`
+- **HC_CHECKUP_PROPOS** → `tables/hc-checkup-propos.mdc`
+- **HC_CHECKUP_PRODUCT** → `tables/hc-checkup-product.mdc`
+- **HC_PARTNER_CENTER** → `tables/hc-partner-center.mdc`
+
+---
+
+## 1. Policy (`HC_CHECKUP_POLICY`)
+
+- Every customer (CUSTOMER) has policies (e.g. 2024 policy, 2025 policy).
+- Each policy has a **validity period** (e.g. 2024 policy `20240101000000` ~ `20241231125959`).
+
+### Validity period columns (6 columns, all `char(14)`)
+
+- `RESERV_START_DT` / `RESERV_END_DT`: Corporate billing period
+- `CHECKUP_START_DT` / `CHECKUP_END_DT`: Checkup period
+- `FAMILY_CHECKUP_START_DT` / `FAMILY_CHECKUP_END_DT`: Individual (family) billing period
+
+### Period applied per examinee
+
+- Examinees with `HC_CHECKUP_ROSTER.COMPANY_SUPPORT_TYPE` (company support type) **10** (company-supported) → `RESERV_START_DT` / `RESERV_END_DT` apply.
+- Examinees with company support type **20** (individual billing), etc. → `FAMILY_CHECKUP_START_DT` / `FAMILY_CHECKUP_END_DT` apply.
+
+### Always-on (no end date)
+
+- If policy start/end dates are `19900101000000` and `29901231235959` respectively, it is treated as **always-on** (effectively no end date).
+
+### Booking disabled
+
+- When the corporate billing period ends, company-supported examinees cannot book.
+- When the individual billing period ends, individually billed examinees cannot book.
+
+### Policy year note
+
+- Even if there is no policy for the current year, booking is still possible if a previous year’s policy period is still valid (e.g. in 2026, no 2026 policy but 2025 policy period still valid). This is not the recommended service behavior, however.
+
+---
+
+## 2. Proposal (`HC_CHECKUP_PROPOS`)
+
+- After a policy is created, a **proposal** is created for that policy.
+- **Proposal** = information describing the **product bundle and conditions** offered to the contracted customer.
+  - E.g. proposal composed of MRI-focused products, proposal including endoscopy option selection, etc.
+  - Discount rate, company support ratio for sedation endoscopy cost, etc. are also specified in the proposal.
+- One proposal has **multiple products** (`HC_CHECKUP_PRODUCT`).
+
+---
+
+## 3. Product (`HC_CHECKUP_PRODUCT`)
+
+- Flow: policy creation → proposal → **individual product** data creation.
+
+### Validity period
+
+- Products also have `RESERV_START_DT` / `RESERV_END_DT` / `CHECKUP_START_DT` / `CHECKUP_END_DT`, but the **policy** (`HC_CHECKUP_POLICY`) dates are what are actually applied.
+
+### System usage fee (revenue model)
+
+- When an examinee books a checkup, the **system usage fee** (`SYSTEM_USAGE_FEE`) for that product is charged via the payment module. This is a core revenue model of the service.
+- Depending on admin settings, the actual system usage fee charged may use one of the following column values:
+  - `COMPANY_SUPPORT_EMPLOY_COMPANY_SYSTEM_USAGE_FEE` (def=0)
+  - `COMPANY_SUPPORT_EMPLOY_SELF_SYSTEM_USAGE_FEE` (def=0)
+  - `COMPANY_SUPPORT_FAMILY_COMPANY_SYSTEM_USAGE_FEE` (def=0)
+  - `COMPANY_SUPPORT_FAMILY_SELF_SYSTEM_USAGE_FEE` (def=0)
+  - `SELF_PAY_ALL_COMPANY_SYSTEM_USAGE_FEE` (def=0)
+  - `SELF_PAY_ALL_SELF_SYSTEM_USAGE_FEE` (def=0)
+
+---
+
+## 4. Checkup center (`HC_PARTNER_CENTER`)
+
+- Master table holding information on the **actual checkup venue** (partner hospital/affiliated center) where each product’s checkup is performed.
+- `HC_CHECKUP_PRODUCT` has `PARTNER_CENTER_ID`, linking which center performs the checkup per product.
+- Center name, address, contact, how checkup results are received, endoscopy age limits, and other info needed to run the venue are stored. See `tables/hc-partner-center.mdc` for column specs.

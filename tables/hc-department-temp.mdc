@@ -1,0 +1,13 @@
+---
+description: HC_DEPARTMENT_TEMP 테이블 명세.
+alwaysApply: false
+---
+임시 부서 코드/명 매핑 테이블.
+
+**HC_DEPARTMENT_TEMP**
+SEQ:int(11) PRI NN AI
+CATEGORY:int(11)
+PR_SEQ:int(11)
+CUSTOMER_ID:varchar(50)
+NAME:varchar(255) [대분류-1, 중분류-1, 소분류명으로 나뉨]
+CODE:varchar(2)

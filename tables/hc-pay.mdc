@@ -1,0 +1,50 @@
+---
+description: HC_PAY (결제) 테이블 명세.
+alwaysApply: false
+---
+결제. PK: PAY_NO (AI). 예약(HC_RESERV)에 대한 결제 정보.
+
+**HC_PAY**
+PAY_NO:int PRI NN AI
+RESERV_NO:int MUL
+HELLO_SERVICE_KEY:bigint(20)
+CHECKUP_ROSTER_NO:int def=0
+PAY_AMOUNT:int
+PAY_REQ_AMOUNT:int
+PAY_REQ_TYPE:char(2)
+DEVICE_TYPE:char(2)
+PAYWAY_TYPE:char(4)
+REG_DT:char(14)
+PAY_ST:char(2) [10=URL결제발송,11=결제유효일만료,20=승인요청(사용자),30=승인요청(관리자),50=승인단계,51=예약변경등록,70=결제완료,78=취소요청,80=결제취소,90=결제실패,91=결제취소실패]
+PG_TXN_ID:varchar(100)
+PG_CERTIFY_KEY:varchar(100)
+PAY_RESULT_CD:char(4)
+PAY_COMPLETE_DT:char(14)
+CANCEL_REQ_CD:char(2)
+CANCEL_REQ_DT:char(14)
+CANCEL_COMPLETE_DT:char(14)
+CANCEL_PG_TXN_ID:varchar(100)
+CANCEL_RESULT_CD:varchar(50)
+UPDATE_DT:char(14)
+NICE_PAY_ST:char(2)
+NICE_PAY_CHECK_REG_DT:char(14)
+CANCEL_CAUSE:varchar(100)
+CANCEL_REQUESTER:varchar(50)
+PAY_ONLY_SMS_REQUESTER:varchar(50)
+NET_CANCEL_URL:varchar(255)
+GROUP_PAY_YN:varchar(1) def=N
+MASTER_PAY_NO:int
+PAY_ONLY_SMS_MOBILE_NO:varchar(30)
+PAY_LIMIT_DT:char(8)
+BILL_NO:char(11) MUL
+TERMINAL_ID:varchar(50)
+PAY_ONLY_RECEIVER_EMAIL:varchar(100)
+PAY_ONLY_RECEIVER_NAME:varchar(100)
+
+---
+
+## Index (EDU)
+
+- **BILL_NO_IDX:** BILL_NO
+- **HC_PAY_index:** RESERV_NO, PAY_ST
+- **PRIMARY:** PAY_NO

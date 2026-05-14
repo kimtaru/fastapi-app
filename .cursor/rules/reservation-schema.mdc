@@ -1,0 +1,26 @@
+---
+description: Guide for the reservation domain (HC_RESERV, HC_PAY).
+alwaysApply: false
+---
+
+# Reservation domain overview
+
+## HC_RESERV (Checkup reservation)
+
+- **Role:** One row per checkup reservation. The examinee (`HC_CHECKUP_ROSTER`) books a product (`HC_CHECKUP_PRODUCT`); this table is the reservation record.
+- **PK:** `RESERV_NO` (auto-increment).
+- **Key columns:** `CHECKUP_ROSTER_NO` (examinee), `CHECKUP_PRODUCT_NO`, `RESERV_REG_DT` (registration datetime), `RESERV_DAY` (scheduled checkup date), `RESERV_ST` (e.g. 10=신청, 50=확정, 70=검진완료, 80=취소).
+- **Query tip:** Filter active examinees with `HC_CHECKUP_ROSTER.CHECKUP_ROSTER_ST = '00'` when joining.
+
+Full column spec: `tables/hc-reserv.mdc`.
+
+---
+
+## HC_PAY (Payment)
+
+- **Role:** Payment record(s) for a reservation. One reservation can have multiple payment rows (e.g. request, retry, cancel).
+- **PK:** `PAY_NO`. Links to reservation via `RESERV_NO`.
+- **Key columns:** `RESERV_NO`, `PAY_AMOUNT`, `PAY_ST` (e.g. 70=결제완료, 80=결제취소), `PAY_COMPLETE_DT`, `REG_DT`.
+- **“Paid”:** Treat as paid when there is at least one row with `PAY_ST = '70'` for that `RESERV_NO`.
+
+Full column spec: `tables/hc-pay.mdc`.

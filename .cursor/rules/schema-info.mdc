@@ -1,0 +1,90 @@
+---
+description: Basic guidelines when database queries are required.
+alwaysApply: false
+---
+# Project Purpose
+
+This project allows an Agent to query the database directly and provide users with the information they need.
+
+> **⚠️ Read-only**  
+> **INSERT / UPDATE / DELETE are not allowed.** Only READ (query) operations are permitted.
+
+**Data source (Prod vs EDU):**
+- When the user refers to **production**, **live**, or **real service** → use **production DB**. Call `db.get_db_connection(prod=True)` or use `DB_CONFIG_PROD` (HOPS).
+- Otherwise → use non-production (EDU) DB. `get_db_connection()` defaults to `prod=False`.
+- Endpoints that query the DB must support **production** via a query parameter (e.g. `prod: bool = False` or `env: Literal["edu","prod"] = "edu"`), and call `get_db_connection(prod=True)` when `prod=True` (or `env="prod"`).
+
+---
+
+# API Development Rule
+
+When implementing functionality to fulfill a request, **always add it as a reusable API endpoint** in the application (e.g. `main.py`), not as a one-off script.
+
+- Do **not** create standalone scripts (e.g. `query_*.py`) for ad-hoc DB queries that could be exposed as API.
+- Do implement **GET endpoints** with clear query parameters so the same logic can be reused by the Agent, other services, or future requests.
+- Design for **reusability**: parameterize (name, company, ID, etc.) and document the endpoint.
+
+**Code layout (domain-based):**
+- `main.py` — FastAPI app creation and router registration only.
+- `db.py` — DB config and `get_db_connection()`.
+- `routers/<domain>.py` — Domain-specific endpoints (e.g. `routers/persons.py` for person/corporate/unified-member). Add new routers for customers, reservations, products, etc., and register them in `main.py`.
+
+**AI Agent–friendly structure:**  
+Keep endpoints in domain-specific files (`routers/<domain>.py`) and only register routers in `main.py`. This makes it easier for the Agent to locate and edit the right code by domain (e.g. person → `routers/persons.py`, reservation → `routers/reservations.py`) instead of searching through one large `main.py`.
+
+---
+
+# DB Domain
+
+1. **Healthcare** — Health checkup booking platform
+2. **Core data** — Customer info · Reservation info · Product info
+3. **Target** — **Corporate clients** (B2B)
+
+## Service Structure
+
+```
+Checkup Center  ←→  Platform (this service)  ←→  Corporation
+                            ↑
+              Checkup subjects: Employees + their family members
+```
+
+---
+
+# Query Conventions (when querying tables)
+
+- **HC_USER**, **HC_USER_COMMON**: When querying only active members, always include `USER_ST = '00'`. (00=Active, 90=Deleted)
+- **HC_CHECKUP_ROSTER**: When querying only active examinees, always include `CHECKUP_ROSTER_ST = '00'`. (00=Active, 90=Deleted)
+
+---
+
+# Main Tables
+
+## Customer Information
+
+| Table | Description |
+|--------|------|
+| `HC_USER_COMMON` | Unified member |
+| `HC_USER` | Corporate member |
+| `HC_CUSTOMER` | Corporation (client) master |
+| `HC_CUSTOMER_MAP` | Unified member ↔ Corporate member mapping |
+| `HC_CHECKUP_ROSTER` | Checkup roster (examinee list) |
+
+And others
+
+## Reservation Information
+
+| Table | Description |
+|--------|------|
+| `HC_RESERV` | Reservation |
+
+And others
+
+## Product Information
+
+| Table | Description |
+|--------|------|
+| `HC_CHECKUP_PROPOS` | Checkup proposal |
+| `HC_CHECKUP_POLICY` | Checkup policy |
+| `HC_CHECKUP_PRODUCT` | Checkup product |
+
+And others

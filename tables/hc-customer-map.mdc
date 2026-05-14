@@ -1,0 +1,16 @@
+---
+description: HC_CUSTOMER_MAP (통합↔법인 매핑) 테이블 명세.
+alwaysApply: false
+---
+**HC_CUSTOMER_MAP**
+COMMON_USER_NO:int PRI NN AI
+USER_NO:int
+CUSTOMER_ID:char(10) PRI NN
+REG_DT:char(14)
+CUSTOMER_REG_ST:char(2)
+
+---
+
+## Index (EDU)
+
+- **PRIMARY:** COMMON_USER_NO, CUSTOMER_ID

@@ -1,0 +1,41 @@
+---
+description: HC_USER (Corporate Member) 테이블 명세.
+alwaysApply: false
+---
+*Only key columns are listed below; the actual table has more columns.*
+
+**HC_USER**
+USER_NO:int PRI NN AI
+USER_ID:varchar(50)
+USER_NAME:varchar(100)
+MOBILE_NO:varchar(30)
+BIRTHDAY:char(8)
+GENDER_CD:char(2)
+EMAIL:varchar(100)
+ADDRRESS:varchar(150)
+ADDRRESS_DETAIL:varchar(300)
+ZIP_CD:char(5)
+JOIN_DT:char(14)
+USER_ST:char(2) [00=Active,90=Deleted]
+CUSTOMER_ID:char(10)
+EMPLOY_NO:varchar(100)
+DEPARTMENT:varchar(100)
+USER_CI:char(88) MUL
+LAST_PASSWORD_CHANGE_DT:char(14)
+AGREE_TERMS_LIST:varchar(255)
+PWD_RESET_DT:char(14)
+WRONG_PASSWORD_COUNT:int def=0
+TRY_LOGIN_DT:datetime
+DORMANT_YN:char(1) def=N [Y=휴면,N=정상] — 휴면 여부는 USER_ST가 아닌 이 컬럼으로 판단.
+LOGIN_DT:char(14)
+CHANGE_ADMIN_ID:varchar(50)
+USER_TYPE:char(2)
+USER_RELATION_TYPE:char(2)
+
+---
+
+## Index (EDU)
+
+- **PRIMARY:** USER_NO
+- **idx_user_covering:** USER_CI, USER_ST, EMPLOY_NO, CUSTOMER_ID
+- **idx_user_userci_userst:** USER_CI, USER_ST

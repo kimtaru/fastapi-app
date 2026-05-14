@@ -1,0 +1,64 @@
+---
+description: HC_CUSTOMER (고객사/법인 마스터) 테이블 명세.
+alwaysApply: false
+---
+고객사(법인) 마스터. PK: CUSTOMER_ID.
+
+**HC_CUSTOMER**
+CUSTOMER_ID:char(10) PRI NN
+CUSTOMER_NAME:varchar(100) MUL
+CEO_NAME:varchar(100)
+CORP_NO:char(10)
+ADDRRESS:varchar(150)
+ADDRRESS_DETAIL:varchar(300)
+ZIP_CD:char(5)
+MAIN_CUSTOMER_ID:char(10)
+SALES_ADMIN_ID:varchar(50)
+ADMIN_ID:varchar(50)
+COMPANY_LOGO_URL:varchar(256)
+CUSTOMER_DOMAIN:varchar(100) MUL [고객사에서 사용하는 도메인 네임]
+CUSTOMER_DOMAIN_YN:char(1) [고객사 도메인 사용 여부]
+LOGIN_TYPE:char(2) [10=사번형·EMPLOY_NO로 로그인, 20=ID형·USER_ID로 로그인]
+MOBILE_NO_YN:char(2)
+REG_DT:char(14)
+CUSTOMER_ST:char(2)
+ROSTER_ID_TYPE:char(2)
+CUSTOMER_DISPLAY_YN:char(1) MUL def=Y
+MIG_YN:char(1)
+MIG_DT:char(8)
+ROSTER_ADD_TYPE:char(2) def=10
+PARTNER_HC_ID:char(10)
+COMPANY_CHECKUP_POLICY_GUIDE:varchar(500)
+COIMPANY_CHECKUP_PIL:varchar(500)
+BILL_UNIQUENESS_CONTENTS:varchar(500)
+LOGIN_URL:varchar(256)
+LOGIN_CONF_TYPE:char(2)
+NOTE:varchar(2000) def=
+MIN_WAITING_DAY:char(2)
+MIN_WAITING_DAY_YN:char(1) def=N
+BUSINESS_TYPE:varchar(50)
+BUSINESS_ITEM:varchar(50)
+ADD_TEST_YN:char(1) def=Y
+CUSTOMER_CERTIFY_CD:varchar(50) [고객사 인증코드]
+CUSTOMER_CERTIFY_CD_TYPE:varchar(2)
+CORPORATE_DISPLAY_YN:char(1) def=N
+COMMON_LOGIN_TARGET_YN:char(1) def=N
+MULTI_ROSTER_RESERV_YN:varchar(1) def=N
+EMAIL_AUTH_YN:char(1) def=N
+EMAIL_AUTH_DOMAIN:varchar(100)
+CUSTOMER_PERSONAL_CODE:char(2) def=00
+CUSTOMER_PERSONAL_START_DT:char(8)
+CUSTOMER_PERSONAL_END_DT:char(8)
+CUSTOMER_PERSONAL_NOTE:varchar(500)
+RELATION_POPUP_YN:char(1) NN def=Y
+COMPANY_SUPPORT_FILTER:int NN def=10
+MAPPING_TYPE:char(2) NN def=10
+
+---
+
+## Index (EDU)
+
+- **HC_CUSTOMER_CUSTOMER_DISPLAY_YN_IDX:** CUSTOMER_DISPLAY_YN
+- **PRIMARY:** CUSTOMER_ID
+- **idx_customer_domain:** CUSTOMER_DOMAIN
+- **idx_customer_name:** CUSTOMER_NAME

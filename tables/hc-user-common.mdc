@@ -1,0 +1,48 @@
+---
+description: HC_USER_COMMON (Unified Member) 테이블 명세.
+alwaysApply: false
+---
+*Only key columns are listed below; the actual table has more columns.*
+
+**HC_USER_COMMON**
+COMMON_USER_NO:int PRI NN AI
+USER_ID:varchar(50) NN UNI
+LOGIN_PASSWORD:varchar(256)
+MOBILE_NO:varchar(30)
+BIRTHDAY:char(8)
+GENDER_CD:char(2)
+USER_NAME:varchar(100)
+EMAIL:varchar(100)
+ADDRESS:varchar(150)
+ADDRESS_DETAIL:varchar(300)
+ZIP_CD:char(5)
+SERVICE_TERMS_OF_USE:char(1)
+PRIVACY_POLICY:char(1)
+JOIN_DT:char(14)
+USER_ST:char(2) [00=Active,90=Deleted]
+PHONE_NO:varchar(30)
+USER_CI:char(88)
+USER_DI:varchar(100)
+DOMESTIC_YN:char(1)
+AGREE_TERMS_LIST:varchar(255)
+PWD_RESET_DT:char(14)
+LAST_PASSWORD_CHANGE_DT:varchar(14)
+DORMANT_YN:char(1) def=N [Y=휴면,N=정상] — 휴면 여부는 USER_ST가 아닌 이 컬럼으로 판단.
+LOGIN_DT:char(14)
+SSO_COMMON_USER_YN:char(1) def=N
+SSO_FIRST_USER_YN:char(1) def=N
+USER_GID:char(88)
+SSO_COMMON_USER_ID:varchar(50) UNI
+HISTORY_PASSWORD:varchar(256)
+AUTO_LOGIN_KEY:varchar(255)
+AUTO_LOGIN_EXPIRE:datetime
+WRONG_PASSWORD_COUNT:int def=0
+
+---
+
+## Index (EDU)
+
+- **PRIMARY:** COMMON_USER_NO
+- **UNIQUE_SSO_COMMON_USER_ID:** SSO_COMMON_USER_ID (UNIQUE)
+- **UNIQUE_USER_ID:** USER_ID (UNIQUE)
+- **idx_user_common_ci:** COMMON_USER_NO, USER_ST, USER_CI
